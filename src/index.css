@@ -1,13 +1,112 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root{
+  --white:#fff;
+  --black:#000;
+  --grisClaro:#f1f6f9;
+  --grisOscuro:#9ba4b4;
+  --azulOscuro:#132743;
+  --azulClaro:#394867; 
+  --font:'Balsamiq Sans', cursive;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*{
+  padding: 0;
+  margin: 0;
+  font-family: var(--font);
 }
+.sombra{
+  -webkit-box-shadow: 2px 2px 19px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 19px 3px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 19px 3px rgba(0,0,0,0.75);
+}
+h1,h2,h3,h4,h5,h6,p{
+  margin: 0;
+  padding: 0;
+}
+
+/*-COMPONENT LOGIN-*/
+.container-login{
+  height: 100vh;
+  
+}
+.container-login .fondo-login{
+  min-width: 69.999%;
+  background: #fff url('./assets/fondo-login.jpg') no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  float: left;
+  position: relative;
+}
+.container-login .fondo-login h1{
+  color: var(--white);
+  font-weight: bold;
+  font-size: 4rem;
+  margin-top: 3rem;
+}
+.container-login .fondo-login img{
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+.container-login .container-login-form{
+  width: 30%;
+  min-height: 100vh;
+  padding: 20px;
+  float: left;
+  background-color: var(--grisOscuro);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container-login .container-login-form h1{
+  color: var(--white);
+}
+/*-----------------*/
+
+/*------HOME-------*/
+.container-app{
+  min-height: 100vh;
+  height: 100vh;
+}
+.container-main{
+  float: left;
+  width: 80%;
+  background-color: var(--grisClaro);
+  height: inherit;
+}
+/*-----------------*/
+
+/*------SIDEBAR----*/
+aside{
+  width: 20%;
+  min-width: 20%;
+  float: left;
+  background-color: var(--azulOscuro);
+  height: 100%;
+  /* padding: 20px; */
+  color: var(--white);
+}
+aside h2,h4{
+  text-align: center;
+  font-weight: 400;
+  padding: 10px;
+}
+aside nav ul{
+  list-style: none;
+}
+aside nav ul a:hover{
+  text-decoration: none;
+}
+aside nav ul a:hover li{
+  background: red;
+}
+aside nav ul li{
+  color: var(--grisClaro);
+  padding: 10px 30px;
+  text-decoration: none;
+  
+}
+/*-----------------*/
