@@ -1,12 +1,11 @@
 import React,{useState} from 'react'
-
 import Error from '../layout/Error'
-
 import swal from 'sweetalert'
-
 import axios from 'axios'
-
 import LogoPlaca from '../../assets/placa.png'
+
+import {BiColorFill,BiCar} from 'react-icons/bi'
+import {FaCarSide} from 'react-icons/fa'
 
 const RegVehiculo = ({setVregistrado,placa}) => {
 
@@ -45,22 +44,22 @@ const RegVehiculo = ({setVregistrado,placa}) => {
                 id_marca:parseInt(id_marca)
 
             })
-                .then(response => {
-                    console.log(response)
-                    if (response.status===200) {
-                        swal({
-                            title: "Vehiculo Registrado",
-                            icon: "success",
-                            button: "ok",
-                            timer:2000
-                        });
-                        setVregistrado(false)
-                    }
+            .then(async response => {
+                if (response.status===200) {
+                    await swal({
+                        title: "Vehiculo Registrado",
+                        icon: "success",
+                        button: "ok",
+                        timer:2000
+                    });
+                    setVregistrado(false)
                     
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+                }
+                    
+            })
+            .catch(error => {
+                console.log(error);
+            })
         } catch (error) {
             console.log(error);
         }
@@ -78,15 +77,15 @@ const RegVehiculo = ({setVregistrado,placa}) => {
                         <h3 className="visitante">Visitante</h3>
                     </div>
                     <div className="form-group col-6">
-                        <label htmlFor="color">Color</label>
+                        <label htmlFor="color"><BiColorFill/> Color</label>
                         <input type="text" name="color" id="color" value={color} onChange={onChange} className="form-control"/>
                     </div>
                     <div className="form-group col-6">
-                        <label htmlFor="modelo">Modelo</label>
+                        <label htmlFor="modelo"><BiCar/> Modelo</label>
                         <input type="text" name="modelo" id="modelo" value={modelo} onChange={onChange} className="form-control"/>
                     </div>
                     <div className="form-group col-6">
-                        <label htmlFor="id_marca">Marca</label>
+                        <label htmlFor="id_marca"><BiCar/> Marca</label>
                         <select name="id_marca" id="id_marca" onChange={onChange} className="form-control">
                             <option value="0">--Seleccione una marca--</option>
                             <option value="1">TOYOTA</option>
@@ -103,7 +102,7 @@ const RegVehiculo = ({setVregistrado,placa}) => {
                     ?<Error mensaje="Todos los campos deben estar llenados correctamente" clase="alert-warning"/>
                     :null
                 }
-                <button type="submit" className="btn btn-info btn-block">Registrar Vehiculo</button>
+                <button type="submit" className="btn btn-info btn-block"><FaCarSide/> Registrar Vehiculo</button>
             </form>
         </>
      );

@@ -1,6 +1,9 @@
 import React,{useState} from 'react'
 import Error from '../layout/Error'
 import RegVehiculo from '../vehiculos/RegVehiculo'
+import RegEntrada from '../vehiculos/RegEntrada'
+
+import {BiSearchAlt} from 'react-icons/bi'
 
 const Entrada = () => {
 
@@ -8,16 +11,17 @@ const Entrada = () => {
 
     const [ error, setError ] = useState(false)
 
-    
-
     const [ vregistrado, setVregistrado ] = useState(false)
 
-   
+    const [ encontrado, setEncontrado ] = useState(false)
+
+    const [ vehiculo, setVehiculo ] = useState({})
  
     const onSubmitPlaca = async e => {
         e.preventDefault();
         if (placa.trim()==='') {
             setError(true);
+            setEncontrado(false)
             setVregistrado(false);
             return;
         }
@@ -27,8 +31,11 @@ const Entrada = () => {
             const datos = await url.json();
             if (datos.length === 0) {
                 setVregistrado(true)    
+                setEncontrado(false);
             }else{
-                
+                setVehiculo(datos[0])
+                setVregistrado(false)
+                setEncontrado(true);
             }
         } catch (error) {
             console.log(error);
@@ -52,7 +59,7 @@ const Entrada = () => {
                     </div>
                     <div className="form-group col-3">
                         <label style={{display:"block"}} htmlFor="">-</label>
-                        <button type="submit" className="btn btn-info">Buscar</button>
+                        <button type="submit" className="btn btn-info"><BiSearchAlt/> Buscar</button>
                     </div>
                     <div className="form-group col-9">
                         {error
@@ -70,6 +77,10 @@ const Entrada = () => {
                 {vregistrado
                     ? <RegVehiculo setVregistrado={setVregistrado} placa={placa} />
                     : null
+                }
+                {encontrado
+                    ? <RegEntrada placa={placa} vehiculo={vehiculo} />
+                    :null
                 }
             </div>
         </div>
