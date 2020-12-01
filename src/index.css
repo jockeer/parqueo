@@ -74,7 +74,7 @@ h1,h2,h3,h4,h5,h6,p{
 .container-main{
   float: left;
   width: 80%;
-  background-color: var(--grisClaro);
+  background: var(--grisClaro) url('./assets/fondo-main.jpg');
   height: inherit;
 }
 /*-----------------*/
@@ -97,16 +97,68 @@ aside h2,h4{
 aside nav ul{
   list-style: none;
 }
+aside nav ul a{
+  display: block;
+  padding: 10px 30px;
+  color: white;
+}
 aside nav ul a:hover{
   text-decoration: none;
+  background-color: var(--azulClaro);
+  color: white;
 }
-aside nav ul a:hover li{
-  background: red;
+
+
+/*-----------------*/
+
+/*------HEADER-----*/
+header{
+  min-height: 50px;
+  background-color: var(--azulClaro);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: var(--white);
+  font-weight: 700;
 }
-aside nav ul li{
-  color: var(--grisClaro);
-  padding: 10px 30px;
-  text-decoration: none;
+/*-----------------*/
+
+/*-----ENTRADA-----*/
+.container-entrada{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  column-gap: 10px;
+}
+/*-----------------*/
+
+/*---RegVehiculo---*/
+.form-reg-vehiculo{
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+.form-reg-vehiculo .visitante{
+  background: green;
+  text-align: center;
+  border-radius: 8px;
+  color: white;
+  padding: 5px 0;
+}
+.form-reg-vehiculo .img-placa{
+  position: relative;
+  width: 72%;
+  overflow: hidden;
+}
+.form-reg-vehiculo .nro-placa{
+  position: absolute;
+  bottom: 20%;
+  width: 70%;
+  color: #1F3797;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  
   
 }
+
 /*-----------------*/

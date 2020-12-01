@@ -2,7 +2,7 @@ import React from 'react'
 
 import {NavLink} from 'react-router-dom'
 
-import {BiLogOut} from 'react-icons/bi'
+import {BiLogOut, BiCar, BiStar, BiBookBookmark} from 'react-icons/bi'
 
 const Sidebar = () => {
     return ( 
@@ -12,17 +12,17 @@ const Sidebar = () => {
             <nav>
                 <h2 className="mt-5">Menu</h2>
                 <ul>
-                    <NavLink exact to="/" >
-                        <li>Puestos</li>
+                    <NavLink exact to="/home"  activeStyle={{color: "red"}}>
+                        <BiCar/> Parkeo
                     </NavLink>
-                    <NavLink exact to="/" >
-                        <li>Puestos</li>
+                    <NavLink exact to="/abonados" activeStyle={{color: "red"}}>
+                        <BiStar/>Abonados
                     </NavLink>
-                    <NavLink exact to="/" >
-                        <li>Puestos</li>
+                    <NavLink exact to="/reportes" activeStyle={{color: "red"}}>
+                        <BiBookBookmark/> Reportes
                     </NavLink>
-                    <NavLink exact to="/" >
-                        <li><BiLogOut/> Log Out</li>
+                    <NavLink exact to="/">
+                        <BiLogOut/> Log Out
                     </NavLink>
                 </ul>
             </nav>
