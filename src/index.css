@@ -139,6 +139,7 @@ header{
   background: white;
   padding: 20px;
   border-radius: 8px;
+  position: relative;
 }
 .form-reg-vehiculo .visitante{
   background: green;
@@ -184,5 +185,17 @@ header{
   color: #1F3797;
   font-weight: bold;
   font-size: 25px;
+}
+.abonado{
+  background: rgb(15, 128, 0);
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+}
+.abonado.reg-entrada,.visitante.reg-entrada{
+  position: absolute;
+  right: 5%;
+  padding: 5px;
 }
 /*-----------------*/

@@ -10,7 +10,7 @@ const Entrada = () => {
     const [ placa, setPlaca ] = useState('')
 
     const [ error, setError ] = useState(false)
-
+    const [ plan, setPlan ]= useState(false)
     const [ vregistrado, setVregistrado ] = useState(false)
 
     const [ encontrado, setEncontrado ] = useState(false)
@@ -27,7 +27,7 @@ const Entrada = () => {
         }
         setError(false);
         try {
-            const url = await fetch(`http://localhost:4000/api/verificarVehiculo/${placa}`);
+            const url = await fetch(`http://localhost:4000/api/verificarVehiculo/${placa.toUpperCase()}`);
             const datos = await url.json();
             if (datos.length === 0) {
                 setVregistrado(true)    
@@ -37,6 +37,14 @@ const Entrada = () => {
                 setVregistrado(false)
                 setEncontrado(true);
             }
+
+            const url2 = await fetch(`http://localhost:4000/api/verificarPlan/${placa.toUpperCase()}`);
+            const datos2 = await url2.json();
+            if (datos2.length === 0) {
+                setPlan(false);
+                return
+            }
+            setPlan(true)
         } catch (error) {
             console.log(error);
         }
@@ -79,7 +87,7 @@ const Entrada = () => {
                     : null
                 }
                 {encontrado
-                    ? <RegEntrada placa={placa} vehiculo={vehiculo} />
+                    ? <RegEntrada placa={placa} plan={plan} vehiculo={vehiculo} />
                     :null
                 }
             </div>

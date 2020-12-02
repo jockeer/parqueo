@@ -1,11 +1,10 @@
 import React from 'react'
-import {BiColorFill,BiCar} from 'react-icons/bi'
-import {FaCarSide, FaPencilAlt} from 'react-icons/fa'
+import {FaPencilAlt} from 'react-icons/fa'
 import imgPlaca from '../../assets/placa.png'
 
-const RegEntrada = ({placa, vehiculo}) => {
-    // debugger
 
+const RegEntrada = ({placa, vehiculo, plan}) => {
+    // debugger
     const asignarLugar = async ()=>{
         alert('s')
     } 
@@ -13,11 +12,14 @@ const RegEntrada = ({placa, vehiculo}) => {
     return ( 
         <>
         <form  className="form-reg-vehiculo sombra" action="">
-            
+                {plan
+                    ? <p className="abonado reg-entrada">Abonado</p>
+                    : <p className="visitante  reg-entrada">Visitante</p>
+                }
                 <h5>Asignar Lugar Disponible</h5>
                 <figure className="img-placa-lugar">
                     <img  src={imgPlaca} alt=""/>
-                    <p className="num-placa">{placa}</p>
+                    <p className="num-placa">{placa.toUpperCase()}</p>
 
                 </figure>
                 <p>Modelo: {vehiculo.modelo}</p>
