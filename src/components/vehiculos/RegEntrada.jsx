@@ -1,16 +1,32 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {FaPencilAlt} from 'react-icons/fa'
 import imgPlaca from '../../assets/placa.png'
 
+import axios from 'axios'
+
 
 const RegEntrada = ({placa, vehiculo, plan}) => {
-    debugger
-    // debugger
+
+    const [ lugares, setLugares ] = useState([])
     if (Object.keys(vehiculo).length === 0) {
         return null;
     }
     const asignarLugar = async ()=>{
-        alert('s')
+        try {
+            const respuesta = await axios.get('http://localhost:4000/api/traerLugares');
+            console.log(respuesta.data);
+            await setLugares(respuesta.data);
+            if (vehiculo.dias_faltantes===undefined) {
+                
+            }else if(vehiculo.plan==='abonado') {
+
+            }
+            else if(vehiculo.plan==='abonado-vip'){
+
+            }
+        } catch (error) {
+            console.log(error);
+        }
     } 
 
     return ( 
@@ -27,16 +43,28 @@ const RegEntrada = ({placa, vehiculo, plan}) => {
 
                     </figure>
                     {plan
-                        ? <p className="abonado reg-entrada sombra">{vehiculo.plan} <br/><span>{vehiculo.dias_faltantes.days} dias restantes</span></p>
-                        : <p className="visitante reg-entrada">Visitante</p>
+                        ? vehiculo.dias_faltantes===undefined
+                            ? null
+                            : <p className="abonado reg-entrada sombra">{vehiculo.plan} <br/><span>{vehiculo.dias_faltantes.days} dias restantes</span></p>
+                        : <p className="abonado reg-entrada sombra">Visitante</p>
                     }
 
                 </div>
                 <hr/>
                 <div className="datos">
-                    <p>Cliente: {vehiculo.cliente}</p>
-                    <p>Estado del contrato: {vehiculo.estado}</p>
-                    <p>Dias restantes: {vehiculo.dias_faltantes.days} dias</p>
+                    <h4><b> Datos</b> </h4>
+                    {vehiculo.cliente===undefined
+                        ?null
+                        :<p>Cliente: {vehiculo.cliente}</p>
+                    }
+                    {vehiculo.estado===undefined
+                        ?null
+                        :<p>Estado del contrato: {vehiculo.estado}</p>
+                    }
+                    {vehiculo.dias_faltantes===undefined
+                        ?null
+                        :<p>Dias restantes: {vehiculo.dias_faltantes.days} dias</p>
+                    }
                     <p>Modelo: {vehiculo.modelo}</p>
                     <p>Marca: {vehiculo.marca}</p>
                     <p>Color: {vehiculo.color}</p>

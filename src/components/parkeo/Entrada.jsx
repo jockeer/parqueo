@@ -33,7 +33,7 @@ const Entrada = () => {
                 setVregistrado(true)    
                 setEncontrado(false);
             }else{
-               
+                setVehiculo(datos[0])
                 setVregistrado(false)
                 setEncontrado(true);
             }
