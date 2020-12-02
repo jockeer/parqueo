@@ -194,8 +194,16 @@ header{
   padding: 5px;
 }
 .abonado.reg-entrada,.visitante.reg-entrada{
-  position: absolute;
-  right: 5%;
-  padding: 5px;
+  position: relative;
+  width: 80%;
+  margin: auto auto;
+}
+.container-reg-entrada{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+.card-header{
+  background-color: var(--azulOscuro);
+  color: var(--white);
 }
 /*-----------------*/

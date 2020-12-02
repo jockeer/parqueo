@@ -33,7 +33,7 @@ const Entrada = () => {
                 setVregistrado(true)    
                 setEncontrado(false);
             }else{
-                setVehiculo(datos[0])
+               
                 setVregistrado(false)
                 setEncontrado(true);
             }
@@ -44,6 +44,7 @@ const Entrada = () => {
                 setPlan(false);
                 return
             }
+            setVehiculo(datos2[0])
             setPlan(true)
         } catch (error) {
             console.log(error);
