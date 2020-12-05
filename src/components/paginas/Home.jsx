@@ -4,6 +4,7 @@ import Sidebar from '../layout/Sidebar'
 
 import Logo from '../../assets/parking-area.png'
 import Entrada from '../parkeo/Entrada'
+import Salida from '../parkeo/Salida'
 
 const Home = () => {
     return ( 
@@ -26,7 +27,7 @@ const Home = () => {
                     </ul>
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><Entrada/> </div>
-                        <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">.ssdsdwdawew..</div>
+                        <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"><Salida/></div>
 
                     </div>
                 </div>

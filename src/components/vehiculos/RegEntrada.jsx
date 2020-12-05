@@ -1,28 +1,99 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {FaPencilAlt} from 'react-icons/fa'
 import imgPlaca from '../../assets/placa.png'
 
 import axios from 'axios'
 
-
-const RegEntrada = ({placa, vehiculo, plan}) => {
-
-    const [ lugares, setLugares ] = useState([])
+import swal from 'sweetalert'
+const RegEntrada = ({placa, vehiculo, plan, lugares, setEncontrado}) => {
+    // debugger
     if (Object.keys(vehiculo).length === 0) {
         return null;
     }
-    const asignarLugar = async ()=>{
+    const asignarLugar = async () => {
         try {
-            const respuesta = await axios.get('http://localhost:4000/api/traerLugares');
-            console.log(respuesta.data);
-            await setLugares(respuesta.data);
+            var t = new Date();
+            let fecha = `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`
+            let hora = `${t.getHours()}:${t.getMinutes()}:${t.getSeconds()}`
+            
             if (vehiculo.dias_faltantes===undefined) {
+                let disponibles = await lugares.filter(lugar => {
+                    return (lugar.nro_piso >= 2 && lugar.ocupado === "F")
+                })
+
+                //asignar lugar
+
+                await axios.post('http://localhost:4000/api/registrarLugar',{
+                    placa_vehiculo:placa,
+                    id_lugar:disponibles[0].id,
+                    fecha_ingreso:fecha,
+                    hora_ingreso:hora
+                })
+                .then(async response => {
+                    if (response.status===200) {
+                        await swal({
+                            title: "Lugar Asignado",
+                            icon: "success",
+                            button: "ok",
+                            timer:2000
+                        });
+                        setEncontrado(false)
+                    }
+                })
+                .catch(err =>{
+                    console.log(err)
+                })
+                // console.log(disponibles[0])
                 
             }else if(vehiculo.plan==='abonado') {
-
+                let disponibles = await lugares.filter(lugar => {
+                    return (lugar.nro_piso >= 2 && lugar.ocupado === "F")
+                })
+                await axios.post('http://localhost:4000/api/registrarLugar',{
+                    placa_vehiculo:placa,
+                    id_lugar:disponibles[0].id,
+                    fecha_ingreso:fecha,
+                    hora_ingreso:hora
+                })
+                .then(async response => {
+                    if (response.status===200) {
+                        await swal({
+                            title: "Lugar Asignado",
+                            icon: "success",
+                            button: "ok",
+                            timer:2000
+                        });
+                        setEncontrado(false)
+                    }
+                })
+                .catch(err =>{
+                    console.log(err)
+                })
             }
             else if(vehiculo.plan==='abonado-vip'){
-
+                let disponibles = await lugares.filter(lugar => {
+                    return (lugar.nro_piso >= 1 && lugar.ocupado === "F")
+                })
+                await axios.post('http://localhost:4000/api/registrarLugar',{
+                    placa_vehiculo:placa,
+                    id_lugar:disponibles[0].id,
+                    fecha_ingreso:fecha,
+                    hora_ingreso:hora
+                })
+                .then(async response => {
+                    if (response.status===200) {
+                        await swal({
+                            title: "Lugar Asignado",
+                            icon: "success",
+                            button: "ok",
+                            timer:2000
+                        });
+                        setEncontrado(false)
+                    }
+                })
+                .catch(err =>{
+                    console.log(err)
+                })
             }
         } catch (error) {
             console.log(error);
@@ -45,14 +116,14 @@ const RegEntrada = ({placa, vehiculo, plan}) => {
                     {plan
                         ? vehiculo.dias_faltantes===undefined
                             ? null
-                            : <p className="abonado reg-entrada sombra">{vehiculo.plan} <br/><span>{vehiculo.dias_faltantes.days} dias restantes</span></p>
+                            : <><p className="abonado reg-entrada sombra">{vehiculo.plan}<br/><span>{vehiculo.dias_faltantes.days} dias restantes</span><br/>{vehiculo.dias_faltantes.days < 2 ? <button className="btn btn-danger">pagar</button> :null} </p></>
                         : <p className="abonado reg-entrada sombra">Visitante</p>
                     }
 
                 </div>
                 <hr/>
                 <div className="datos">
-                    <h4><b> Datos</b> </h4>
+                    <h4><b> Datos</b> </h4> 
                     {vehiculo.cliente===undefined
                         ?null
                         :<p>Cliente: {vehiculo.cliente}</p>

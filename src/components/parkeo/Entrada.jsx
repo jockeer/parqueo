@@ -16,9 +16,18 @@ const Entrada = () => {
     const [ encontrado, setEncontrado ] = useState(false)
 
     const [ vehiculo, setVehiculo ] = useState({})
+
+    const [ lugares, setLugares ] = useState([])
+
+    const traerLugares = async () => {
+        const API = await fetch('http://localhost:4000/api/traerLugares');
+            const respuesta = await API.json();
+            setLugares(respuesta)
+    }
  
     const onSubmitPlaca = async e => {
         e.preventDefault();
+        traerLugares()
         if (placa.trim()==='') {
             setError(true);
             setEncontrado(false)
@@ -37,8 +46,9 @@ const Entrada = () => {
                 setVregistrado(false)
                 setEncontrado(true);
             }
-
-            const url2 = await fetch(`http://localhost:4000/api/verificarPlan/${placa.toUpperCase()}`);
+            var t = new Date();
+            let fecha = `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`
+            const url2 = await fetch(`http://localhost:4000/api/verificarPlan/${placa.toUpperCase()}/${fecha}`);
             const datos2 = await url2.json();
             if (datos2.length === 0) {
                 setPlan(false);
@@ -49,6 +59,11 @@ const Entrada = () => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const onChange = e => {
+        setEncontrado(false)
+        setPlaca(e.target.value)
     }
 
     return ( 
@@ -64,7 +79,7 @@ const Entrada = () => {
                 <div className="form-row">
                     <div className="form-group col-9">
                         <label htmlFor="placa"><b>Placa</b></label>
-                        <input type="text" maxLength="10" name="placa" id="placa" onChange={e => setPlaca(e.target.value)} placeholder="Introduzca la placa..." className="form-control"/>
+                        <input type="text" maxLength="10" name="placa" id="placa" onChange={onChange} placeholder="Introduzca la placa..." className="form-control"/>
                     </div>
                     <div className="form-group col-3">
                         <label style={{display:"block"}} htmlFor="">-</label>
@@ -88,7 +103,7 @@ const Entrada = () => {
                     : null
                 }
                 {encontrado
-                    ? <RegEntrada placa={placa} plan={plan} vehiculo={vehiculo} />
+                    ? <RegEntrada placa={placa} setEncontrado={setEncontrado} lugares={lugares} plan={plan} vehiculo={vehiculo} />
                     :null
                 }
             </div>
