@@ -10,14 +10,43 @@ const Salida = () => {
     const [ error, setError] = useState(false)
     const [ salida, setSalida] = useState(false)
     const [ vregistrado, setVRegistrado] = useState(false)
+    const [ idsalida,setidsalida] = useState('')
+
+    const [ minutos, setMinutos] = useState('0')
  
     const onChange= e =>{
         setSalida(false)
         setPlaca(e.target.value);
         
     }
+    async function calcularMinutos()
+	{
+        //Cogemos la hora inicial y final y obtenemos los minutos totales
+        var t = new Date();
+        let fecha = `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`
+        let hora = `${t.getHours()}:${t.getMinutes()}:${t.getSeconds()}`
+        const respuesta =await axios.get(`http://localhost:4000/api/verificarTiempo/${placa}/${fecha}`)
+        setidsalida(parseInt(respuesta.data[0].id))
+		const horaInicial=devolverMinutos(`${respuesta.data[0].hora_ingreso}`);
+        const horaFinal=devolverMinutos(hora);
+        debugger
+ 
+		if(horaInicial<horaFinal)
+		{
+            setMinutos(horaFinal-horaInicial)
+		}else{
+			// document.getElementById("resultado").innerHTML="La hora inicial tiene que ser inferior a la hora final";
+		}
+	}
+ 
+	//Funcion para obtener los minutos totales... 10:30=630 minutos
+	function devolverMinutos(horaMinutos)
+	{
+		return (parseInt(horaMinutos.split(":")[0])*60)+parseInt(horaMinutos.split(":")[1]);
+	}
     const onSubmitPlaca= async e =>{
         e.preventDefault();
+        
         if (placa.trim()==='') {
             setVRegistrado(false);
             setSalida(false);
@@ -28,9 +57,10 @@ const Salida = () => {
 
         const respuesta = await axios.get(`http://localhost:4000/api/verificarVehiculo/${placa}`)
         if (respuesta.data.length===0) {
-            setVRegistrado(true);
+            setVRegistrado(false);
             return;
         }
+        calcularMinutos();
         setVRegistrado(true);
         setSalida(true);
     }
@@ -58,13 +88,17 @@ const Salida = () => {
                         {error
                             ?<Error mensaje="coloque una placa" clase="alert-danger"/>
                             :null
-                        }           
+                        } 
+                        {vregistrado
+                            ?null
+                            :<Error mensaje="placa no existe" clase="alert-danger"/>
+                        }         
                     </div>
                 </div>
             </form>
             <div className="info">
                 {vregistrado
-                    ?<RegSalida/>
+                    ?<RegSalida placa={placa} minutos={minutos} idsalida={idsalida}/>
                     :null
                 }
             </div>

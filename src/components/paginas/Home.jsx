@@ -12,9 +12,9 @@ const Home = () => {
         <div className="container-app">
             <Sidebar />
             <div className="container-main">
-                <Header titulo="Parkeo"/>
+                <Header titulo="Parqueo"/>
                 <div className="container">
-                    <h2 className="mt-4"><span><img width="50px" src={Logo} alt=""/></span> - Administracion de Parkeos</h2>
+                    <h2 className="mt-4"><span><img width="50px" src={Logo} alt=""/></span> - Administracion de Parqueo</h2>
                     <hr/>
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item" role="presentation">

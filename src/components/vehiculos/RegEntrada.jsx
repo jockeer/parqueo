@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import swal from 'sweetalert'
 const RegEntrada = ({placa, vehiculo, plan, lugares, setEncontrado}) => {
-    // debugger
+    debugger
     if (Object.keys(vehiculo).length === 0) {
         return null;
     }
@@ -135,6 +135,11 @@ const RegEntrada = ({placa, vehiculo, plan, lugares, setEncontrado}) => {
                     {vehiculo.dias_faltantes===undefined
                         ?null
                         :<p>Dias restantes: {vehiculo.dias_faltantes.days} dias</p>
+                    }
+                    {vehiculo.ulimopago===undefined
+                        ?null
+                        :<p>Ultimo Pago: {vehiculo.ulimopago.substr(0,10)}</p>
+                    
                     }
                     <p>Modelo: {vehiculo.modelo}</p>
                     <p>Marca: {vehiculo.marca}</p>
